@@ -13,6 +13,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\Cookie\Factory as CookieFactory;
+use Illuminate\View\MixFilePathNotFoundException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
@@ -592,7 +593,7 @@ if (! function_exists('mix')) {
         $manifest = $manifests[$manifestPath];
 
         if (! isset($manifest[$path])) {
-            report(new Exception("Unable to locate Mix file: {$path}."));
+            report(new MixFilePathNotFoundException("Unable to locate Mix file: {$path}."));
 
             if (! app('config')->get('app.debug')) {
                 return $path;
